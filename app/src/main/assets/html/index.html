@@ -10,65 +10,194 @@
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f5f6ef;font:16px system-ui,-apple-system,Segoe UI,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
 main{max-width:680px;margin:auto;padding:18px 16px 100px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px}.eyebrow{font-size:12px;color:var(--muted);letter-spacing:.13em;text-transform:uppercase}.title{font-size:27px;font-weight:800;letter-spacing:-.04em;margin:2px 0 14px}.pill{border:1px solid var(--line);border-radius:99px;padding:8px 12px;color:var(--muted);font-size:12px}
 .total{background:var(--lime);color:#17190f;padding:22px;border-radius:24px;margin:12px 0 16px}.total small{font-weight:700;opacity:.75}.amount{font-size:42px;letter-spacing:-.06em;font-weight:850;margin:5px 0}.sub{font-size:13px;opacity:.75}.tabs{display:flex;gap:8px;margin:16px 0;overflow:auto}.tab,button{border:1px solid var(--line);background:var(--panel);color:#f5f6ef;border-radius:14px;padding:11px 14px;font:inherit;cursor:pointer}.tab.active{background:#f5f6ef;color:#15160f;border-color:#f5f6ef;font-weight:700}.section{display:flex;align-items:center;justify-content:space-between;margin:22px 0 10px}.section h2{font-size:17px;margin:0}.btn-primary{background:var(--lime);color:#17190f;border:0;font-weight:800}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px;margin:8px 0}.row{display:flex;align-items:center;gap:12px}.grow{flex:1;min-width:0}.emoji{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:#2c2f24;font-size:21px}.name{font-weight:750}.muted{color:var(--muted);font-size:13px}.price{font-weight:800;font-variant-numeric:tabular-nums}.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.fields .wide{grid-column:1/-1}label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}input,select{width:100%;padding:13px;background:#11120e;border:1px solid var(--line);border-radius:12px;color:#fff;font:inherit}form{display:grid;gap:12px}.hidden{display:none!important}.smallbtn{padding:7px 10px;font-size:12px;border-radius:10px}.danger{color:#ff9a8c}.empty{text-align:center;padding:28px 12px;color:var(--muted)}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}.stat strong{display:block;font-size:23px;margin-top:7px}.bar{height:7px;background:#34372d;border-radius:99px;overflow:hidden;margin-top:8px}.bar span{display:block;height:100%;background:var(--lime)}.bottom{position:fixed;bottom:0;left:0;right:0;background:#11120eef;backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:flex;justify-content:center;gap:7px}.bottom button{flex:1;max-width:150px;font-size:12px;padding:10px 5px}.bottom button.active{border-color:var(--lime);color:var(--lime)}.notice{font-size:12px;color:var(--muted);line-height:1.5;margin-top:16px}
+.modal{position:fixed;inset:0;background:#000b;display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}.dialog{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;width:100%;max-width:420px;max-height:88vh;overflow:auto}.dialog h3{margin:0 0 10px;font-size:18px}.dialog p{margin:0 0 8px;color:var(--muted);font-size:14px;line-height:1.5}.actions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}textarea{width:100%;min-height:150px;padding:12px;background:#11120e;border:1px solid var(--line);border-radius:12px;color:#fff;font:12px ui-monospace,monospace;resize:vertical}.err{color:var(--orange);font-size:13px;min-height:16px;margin-top:6px}.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#f5f6ef;color:#15160f;padding:10px 16px;border-radius:99px;font-size:13px;font-weight:600;z-index:60;max-width:90vw;text-align:center}.dayhead{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;margin:18px 4px 4px;font-weight:700}
 </style>
 </head>
 <body>
 <main>
  <div class="top"><div><div class="eyebrow">Personal money tracker</div><div class="title">Spend Pool Daily</div></div><span class="pill">OFFLINE READY</span></div>
  <section class="total"><small id="totalLabel">TODAY'S SPENDING</small><div class="amount" id="todayTotal">₹0</div><div class="sub" id="todayCount">0 expenses logged</div></section>
- <div class="tabs" id="tabs"><button class="tab active" data-view="today">Today</button><button class="tab" data-view="history">History</button><button class="tab" data-view="insights">Insights</button><button class="tab" data-view="categories">Categories</button></div>
+ <div class="tabs" id="tabs"><button type="button" class="tab active" data-view="today">Today</button><button type="button" class="tab" data-view="history">History</button><button type="button" class="tab" data-view="insights">Insights</button><button type="button" class="tab" data-view="categories">Categories</button></div>
  <section id="view-today">
   <div class="section"><h2>Quick add</h2><span class="muted" id="dateLabel"></span></div>
   <form class="card" id="expenseForm">
    <div class="fields">
-    <div><label for="amount">Amount (₹)</label><input id="amount" type="number" min="1" step="0.01" placeholder="120" required></div>
+    <div><label for="amount">Amount (₹)</label><input id="amount" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="120" required></div>
     <div><label for="category">Category</label><select id="category"></select></div>
     <div class="wide"><label for="note">Note (optional)</label><input id="note" maxlength="100" placeholder="What did you spend on?"></div>
    </div>
    <button class="btn-primary" type="submit">+ Add expense</button>
   </form>
-  <div class="section"><h2>Today's expenses</h2><button class="smallbtn" id="exportBtn">Export backup</button></div>
+  <div class="section"><h2>Today's expenses</h2><button type="button" class="smallbtn" id="exportBtn">Export backup</button></div>
   <div id="todayList"></div>
  </section>
- <section id="view-history" class="hidden"><div class="section"><h2>Expense history</h2><button class="smallbtn" id="historyExport">Export backup</button></div><div id="historyList"></div></section>
+ <section id="view-history" class="hidden"><div class="section"><h2>Expense history</h2><button type="button" class="smallbtn" id="historyExport">Export backup</button></div><div id="historyList"></div></section>
  <section id="view-insights" class="hidden"><div class="section"><h2>Spending insights</h2></div><div class="stats" id="stats"></div><div class="section"><h2>By category</h2></div><div id="breakdown"></div></section>
- <section id="view-categories" class="hidden"><div class="section"><h2>Your categories</h2></div><form class="card" id="categoryForm"><div class="fields"><div><label for="catName">Name</label><input id="catName" maxlength="24" placeholder="Travel" required></div><div><label for="catEmoji">Emoji</label><input id="catEmoji" maxlength="4" value="✨"></div></div><button class="btn-primary">Add category</button></form><div id="categoryList"></div><div class="card"><div class="name">Backup and restore</div><p class="muted">Your records stay in this browser on this device. Export a JSON backup regularly so you can restore your records if browser data is cleared.</p><div class="row"><button id="backupBtn">Export backup</button><button id="importBtn">Import backup</button><input id="importFile" class="hidden" type="file" accept="application/json,.json"></div></div></section>
- <p class="notice">Local-only storage: no account and no cloud sync. Clearing browser/app data may erase records; use Export backup to keep a copy. This is an offline web app package, not yet an Android APK.</p>
+ <section id="view-categories" class="hidden"><div class="section"><h2>Your categories</h2></div><form class="card" id="categoryForm"><div class="fields"><div><label for="catName">Name</label><input id="catName" maxlength="24" placeholder="Travel" required></div><div><label for="catEmoji">Emoji</label><input id="catEmoji" maxlength="4" value="✨"></div></div><button class="btn-primary" type="submit">Add category</button></form><div id="categoryList"></div><div class="card"><div class="name">Backup and restore</div><p class="muted">Your records are stored on this device inside the app. Export a backup regularly (copy the text and save it in Notes, WhatsApp or email) so you can restore it if app data is cleared or the app is uninstalled.</p><div class="row"><button type="button" id="backupBtn">Export backup</button><button type="button" id="importBtn">Import backup</button></div></div></section>
+ <p class="notice">Local-only storage: no account and no cloud sync. Clearing app data or uninstalling the app erases records; use Export backup to keep a copy.</p>
 </main>
-<nav class="bottom"><button class="active" data-view="today">＋ Add</button><button data-view="history">▤ History</button><button data-view="insights">◔ Insights</button><button data-view="categories">⚙ Categories</button></nav>
+<nav class="bottom"><button type="button" class="active" data-view="today">＋ Add</button><button type="button" data-view="history">▤ History</button><button type="button" data-view="insights">◔ Insights</button><button type="button" data-view="categories">⚙ Categories</button></nav>
+<div class="modal hidden" id="modal"><div class="dialog"><h3 id="mTitle"></h3><div id="mBody"></div><div class="actions" id="mActions"></div></div></div>
+<div class="toast hidden" id="toast"></div>
 <script>
 const KEY='spend-pool:v1';
 const defaults=[{id:'cig',name:'Cig',emoji:'🚬',color:'#ff8a5b',builtIn:true},{id:'food',name:'Food',emoji:'🍜',color:'#ffd25b',builtIn:true},{id:'impulse',name:'Impulse',emoji:'⚡',color:'#ff5fa2',builtIn:true},{id:'donate',name:'Donate',emoji:'💝',color:'#4ee6a8',builtIn:true}];
-let data={categories:defaults,expenses:[]};
-try{const v=JSON.parse(localStorage.getItem(KEY)||'null');if(v&&Array.isArray(v.categories)&&Array.isArray(v.expenses))data=v}catch{}
+const DATE_RE=/^\d{4}-\d{2}-\d{2}$/;
 const $=id=>document.getElementById(id);
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
 const money=n=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:2}).format(n);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function save(){try{localStorage.setItem(KEY,JSON.stringify(data))}catch{alert('Could not save. Export a backup and free some browser storage.')}render()}
+const r2=n=>Math.round(n*100)/100;
+
+/* ---------- Storage: validate everything that comes in ---------- */
+function clean(v){
+ if(!v||typeof v!=='object'||!Array.isArray(v.categories)||!Array.isArray(v.expenses))return null;
+ const categories=defaults.map(d=>({...d}));
+ const ids=new Set(categories.map(c=>c.id));
+ v.categories.forEach(c=>{
+  if(!c||typeof c.id!=='string'||!c.id||ids.has(c.id)||typeof c.name!=='string'||!c.name.trim())return;
+  ids.add(c.id);categories.push({id:c.id,name:c.name.trim().slice(0,24),emoji:String(c.emoji||'✨').slice(0,4),color:'#c9f04a',archived:!!c.archived});
+ });
+ const expenses=[];
+ v.expenses.forEach(e=>{
+  if(!e||typeof e!=='object')return;
+  const amount=Number(e.amount);if(!Number.isFinite(amount)||amount<=0)return;
+  let createdAt=Number(e.createdAt);
+  let date=typeof e.date==='string'&&DATE_RE.test(e.date)?e.date:null;
+  if(!date){if(Number.isFinite(createdAt)&&createdAt>0){const d=new Date(createdAt);date=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}else return}
+  if(!Number.isFinite(createdAt)||createdAt<=0)createdAt=new Date(date+'T12:00:00').getTime();
+  expenses.push({id:typeof e.id==='string'&&e.id?e.id:uid(),categoryId:String(e.categoryId||''),amount:r2(amount),note:String(e.note||'').slice(0,100),date,createdAt});
+ });
+ return {categories,expenses};
+}
+function load(){
+ let raw=null;
+ try{raw=localStorage.getItem(KEY)}catch{}
+ if(raw){
+  try{const v=clean(JSON.parse(raw));if(v)return v}catch{}
+  // main data unreadable: keep a copy of it, then try the automatic backup
+  try{localStorage.setItem(KEY+':corrupt',raw)}catch{}
+  try{const b=clean(JSON.parse(localStorage.getItem(KEY+':bak')));if(b)return b}catch{}
+ }
+ return {categories:defaults.map(d=>({...d})),expenses:[]};
+}
+let data=load();
+function save(){
+ try{
+  const prev=localStorage.getItem(KEY);
+  if(prev){try{localStorage.setItem(KEY+':bak',prev)}catch{}}   // previous version kept as safety copy
+  localStorage.setItem(KEY,JSON.stringify(data));
+ }catch{toast('Could not save! Export a backup and free some storage.')}
+ render();
+}
+
+/* ---------- UI helpers (WebView blocks alert/confirm/prompt, so we use our own) ---------- */
+let toastT;
+function toast(m){const t=$('toast');t.textContent=m;t.classList.remove('hidden');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.add('hidden'),2800)}
+let mResolve=null;
+function closeModal(v){$('modal').classList.add('hidden');const r=mResolve;mResolve=null;if(r)r(v)}
+function openModal(title,html,actions){
+ return new Promise(res=>{
+  if(mResolve)closeModal(null);
+  mResolve=res;$('mTitle').textContent=title;$('mBody').innerHTML=html;
+  const box=$('mActions');box.innerHTML='';
+  actions.forEach(a=>{const b=document.createElement('button');b.type='button';b.textContent=a.label;if(a.cls)b.className=a.cls;
+   b.onclick=()=>{if(a.fn){const r=a.fn();if(r===false)return;closeModal(r)}else closeModal(a.value)};box.appendChild(b)});
+  $('modal').classList.remove('hidden');
+ });
+}
+const confirmBox=(msg,okLabel,danger)=>openModal('Please confirm',`<p>${esc(msg)}</p>`,[{label:'Cancel',value:false},{label:okLabel||'OK',value:true,cls:danger?'danger':'btn-primary'}]);
+$('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal(null)});
+
+function copyText(text,ta){
+ try{ta.focus();ta.select();ta.setSelectionRange(0,text.length);if(document.execCommand('copy')){toast('Copied! Paste it in Notes or WhatsApp to keep it safe.');return}}catch{}
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>toast('Copied!'),()=>toast('Press and hold the text to copy it'))}
+ else toast('Press and hold the text to copy it');
+}
+function exportData(){
+ const text=JSON.stringify(data,null,2);
+ const actions=[{label:'Close',value:null},{label:'Copy',cls:'btn-primary',fn:()=>{copyText(text,$('exportText'));return false}}];
+ if(navigator.share)actions.splice(1,0,{label:'Share',fn:()=>{navigator.share({title:'Spend Pool backup',text}).catch(()=>{});return false}});
+ if(!/; wv\)/.test(navigator.userAgent))actions.splice(1,0,{label:'Download',fn:()=>{const u=URL.createObjectURL(new Blob([text],{type:'application/json'})),a=document.createElement('a');a.href=u;a.download='spend-pool-backup-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);return false}});
+ openModal('Export backup',`<p>${data.expenses.length} expenses. Tap Copy and paste it somewhere safe (Notes, WhatsApp, email).</p><textarea id="exportText" readonly></textarea>`,actions);
+ $('exportText').value=text;
+}
+async function importData(){
+ const ok=await openModal('Import backup',`<p>Paste the backup text below (or choose a .json file). This replaces your current data.</p><textarea id="importText" placeholder="Paste backup here"></textarea><input id="importFile" type="file" accept="application/json,.json" style="margin-top:10px"><div class="err" id="importErr"></div>`,[{label:'Cancel',value:false},{label:'Replace data',cls:'btn-primary',fn:()=>{
+  let v=null;try{v=clean(JSON.parse($('importText').value.trim()))}catch{}
+  if(!v){$('importErr').textContent='That backup is not valid.';return false}
+  return v}}]);
+ if(ok){data=ok;save();toast(`Imported ${ok.expenses.length} expenses`)}
+}
+document.addEventListener('change',async e=>{if(e.target&&e.target.id==='importFile'){const f=e.target.files[0];if(f){try{$('importText').value=await f.text()}catch{$('importErr').textContent='Could not read that file.'}}}});
+
+/* ---------- Rendering ---------- */
 function cat(id){return data.categories.find(c=>c.id===id)||{name:'Unknown',emoji:'❔',color:'#888'}}
 function dayName(k){return new Date(k+'T12:00:00').toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short',year:'numeric'})}
-function render(){const t=today(), todays=data.expenses.filter(e=>e.date===t);$('todayTotal').textContent=money(todays.reduce((s,e)=>s+e.amount,0));$('todayCount').textContent=`${todays.length} expense${todays.length===1?'':'s'} logged`;$('dateLabel').textContent=dayName(t);
-$('category').innerHTML=data.categories.filter(c=>!c.archived).map(c=>`<option value="${esc(c.id)}">${esc(c.emoji)} ${esc(c.name)}</option>`).join('');
-const list=(arr)=>arr.length?arr.slice().sort((a,b)=>b.createdAt-a.createdAt).map(e=>{const c=cat(e.categoryId);return `<div class="card row"><div class="emoji">${esc(c.emoji)}</div><div class="grow"><div class="name">${esc(e.note||c.name)}</div><div class="muted">${esc(c.name)} · ${esc(dayName(e.date))}</div></div><div style="text-align:right"><div class="price">${money(e.amount)}</div><div class="row" style="justify-content:flex-end;margin-top:6px"><button class="smallbtn" onclick="editExpense('${e.id}')">Edit</button><button class="smallbtn danger" onclick="deleteExpense('${e.id}')">Delete</button></div></div></div>`}).join(''):'<div class="card empty">No expenses yet. Add your first one above.</div>';
-$('todayList').innerHTML=list(todays);$('historyList').innerHTML=list(data.expenses);
-const total=data.expenses.reduce((s,e)=>s+e.amount,0),month=data.expenses.filter(e=>e.date.slice(0,7)===t.slice(0,7)).reduce((s,e)=>s+e.amount,0);
-$('stats').innerHTML=`<div class="stat"><span class="muted">All-time spend</span><strong>${money(total)}</strong></div><div class="stat"><span class="muted">This month</span><strong>${money(month)}</strong></div><div class="stat"><span class="muted">Total entries</span><strong>${data.expenses.length}</strong></div><div class="stat"><span class="muted">Daily average</span><strong>${money(total/Math.max(1,new Set(data.expenses.map(e=>e.date)).size))}</strong></div>`;
-const sums=data.categories.map(c=>({...c,total:data.expenses.filter(e=>e.categoryId===c.id).reduce((s,e)=>s+e.amount,0)})).filter(c=>c.total>0).sort((a,b)=>b.total-a.total);
-$('breakdown').innerHTML=sums.length?sums.map(c=>`<div class="card"><div class="row"><div class="emoji">${esc(c.emoji)}</div><div class="grow"><div class="name">${esc(c.name)}</div><div class="bar"><span style="width:${total?c.total/total*100:0}%"></span></div></div><div class="price">${money(c.total)}</div></div></div>`).join(''):'<div class="card empty">Your category breakdown will appear after you add expenses.</div>';
-$('categoryList').innerHTML=data.categories.map(c=>`<div class="card row"><div class="emoji">${esc(c.emoji)}</div><div class="grow"><div class="name">${esc(c.name)}</div><div class="muted">${c.builtIn?'Built-in category':'Custom category'}${c.archived?' · Archived':''}</div></div>${c.builtIn?'':`<button class="smallbtn danger" onclick="removeCategory('${c.id}')">Archive</button>`}</div>`).join('');
+const timeOf=ts=>new Date(ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+const sortNew=arr=>arr.slice().sort((a,b)=>b.date.localeCompare(a.date)||b.createdAt-a.createdAt);
+function row(e){const c=cat(e.categoryId);return `<div class="card row"><div class="emoji">${esc(c.emoji)}</div><div class="grow"><div class="name">${esc(e.note||c.name)}</div><div class="muted">${esc(c.name)} · ${esc(timeOf(e.createdAt))}</div></div><div style="text-align:right"><div class="price">${money(e.amount)}</div><div class="row" style="justify-content:flex-end;margin-top:6px"><button type="button" class="smallbtn" data-act="edit" data-id="${esc(e.id)}">Edit</button><button type="button" class="smallbtn danger" data-act="del" data-id="${esc(e.id)}">Delete</button></div></div></div>`}
+function render(){
+ const t=today(),todays=data.expenses.filter(e=>e.date===t);
+ $('todayTotal').textContent=money(todays.reduce((s,e)=>s+e.amount,0));
+ $('todayCount').textContent=`${todays.length} expense${todays.length===1?'':'s'} logged`;
+ $('dateLabel').textContent=dayName(t);
+ const sel=$('category'),prev=sel.value;
+ sel.innerHTML=data.categories.filter(c=>!c.archived).map(c=>`<option value="${esc(c.id)}">${esc(c.emoji)} ${esc(c.name)}</option>`).join('');
+ if([...sel.options].some(o=>o.value===prev))sel.value=prev;
+ $('todayList').innerHTML=todays.length?sortNew(todays).map(row).join(''):'<div class="card empty">No expenses yet today. Add your first one above.</div>';
+ if(data.expenses.length){
+  const groups={};sortNew(data.expenses).forEach(e=>(groups[e.date]=groups[e.date]||[]).push(e));
+  $('historyList').innerHTML=Object.keys(groups).map(d=>`<div class="dayhead"><span>${esc(dayName(d))}</span><span>${money(groups[d].reduce((s,e)=>s+e.amount,0))}</span></div>`+groups[d].map(row).join('')).join('');
+ }else $('historyList').innerHTML='<div class="card empty">No history yet.</div>';
+ const total=data.expenses.reduce((s,e)=>s+e.amount,0),month=data.expenses.filter(e=>e.date.slice(0,7)===t.slice(0,7)).reduce((s,e)=>s+e.amount,0);
+ $('stats').innerHTML=`<div class="stat"><span class="muted">All-time spend</span><strong>${money(total)}</strong></div><div class="stat"><span class="muted">This month</span><strong>${money(month)}</strong></div><div class="stat"><span class="muted">Total entries</span><strong>${data.expenses.length}</strong></div><div class="stat"><span class="muted">Daily average</span><strong>${money(total/Math.max(1,new Set(data.expenses.map(e=>e.date)).size))}</strong></div>`;
+ const sums=data.categories.map(c=>({...c,total:data.expenses.filter(e=>e.categoryId===c.id).reduce((s,e)=>s+e.amount,0)})).filter(c=>c.total>0).sort((a,b)=>b.total-a.total);
+ $('breakdown').innerHTML=sums.length?sums.map(c=>`<div class="card"><div class="row"><div class="emoji">${esc(c.emoji)}</div><div class="grow"><div class="name">${esc(c.name)}</div><div class="bar"><span style="width:${total?c.total/total*100:0}%"></span></div></div><div class="price">${money(c.total)}</div></div></div>`).join(''):'<div class="card empty">Your category breakdown will appear after you add expenses.</div>';
+ $('categoryList').innerHTML=data.categories.map(c=>`<div class="card row"><div class="emoji">${esc(c.emoji)}</div><div class="grow"><div class="name">${esc(c.name)}</div><div class="muted">${c.builtIn?'Built-in category':'Custom category'}${c.archived?' · Archived':''}</div></div>${c.builtIn?'':`<button type="button" class="smallbtn ${c.archived?'':'danger'}" data-act="cat" data-id="${esc(c.id)}">${c.archived?'Restore':'Archive'}</button>`}</div>`).join('');
 }
-window.deleteExpense=id=>{if(confirm('Delete this expense?')){data.expenses=data.expenses.filter(e=>e.id!==id);save()}};
-window.editExpense=id=>{const e=data.expenses.find(x=>x.id===id);if(!e)return;const amount=prompt('Edit amount (₹):',e.amount);if(amount===null)return;const n=Number(amount);if(!Number.isFinite(n)||n<=0){alert('Enter a valid amount.');return}const note=prompt('Edit note:',e.note||'');if(note===null)return;e.amount=n;e.note=note.trim();save()};
-window.removeCategory=id=>{if(confirm('Archive this category? Existing expenses keep their category label.')){data.categories=data.categories.map(c=>c.id===id?{...c,archived:true}:c);save()}};
-$('expenseForm').addEventListener('submit',e=>{e.preventDefault();const amount=Number($('amount').value);if(!Number.isFinite(amount)||amount<=0)return;data.expenses.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),categoryId:$('category').value,amount,note:$('note').value.trim(),date:today(),createdAt:Date.now()});$('amount').value='';$('note').value='';save()});
-$('categoryForm').addEventListener('submit',e=>{e.preventDefault();const name=$('catName').value.trim();if(!name)return;data.categories.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),name,emoji:$('catEmoji').value.trim()||'✨',color:'#c9f04a'});$('catName').value='';save()});
-function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='spend-pool-backup-'+today()+'.json';a.click();URL.revokeObjectURL(url)}
+
+/* ---------- Actions (event delegation: works for every dynamically drawn button) ---------- */
+async function deleteExpense(id){if(await confirmBox('Delete this expense?','Delete',true)){data.expenses=data.expenses.filter(e=>e.id!==id);save();toast('Deleted')}}
+async function editExpense(id){
+ const e=data.expenses.find(x=>x.id===id);if(!e)return;
+ const opts=data.categories.filter(c=>!c.archived||c.id===e.categoryId).map(c=>`<option value="${esc(c.id)}"${c.id===e.categoryId?' selected':''}>${esc(c.emoji)} ${esc(c.name)}</option>`).join('');
+ const r=await openModal('Edit expense',`<div class="fields"><div><label for="eAmt">Amount (₹)</label><input id="eAmt" type="number" inputmode="decimal" step="0.01" min="0.01" value="${esc(e.amount)}"></div><div><label for="eCat">Category</label><select id="eCat">${opts}</select></div><div class="wide"><label for="eDate">Date</label><input id="eDate" type="date" value="${esc(e.date)}"></div><div class="wide"><label for="eNote">Note</label><input id="eNote" maxlength="100" value="${esc(e.note)}"></div></div><div class="err" id="eErr"></div>`,[{label:'Cancel',value:null},{label:'Save',cls:'btn-primary',fn:()=>{
+  const n=Number($('eAmt').value);if(!Number.isFinite(n)||n<=0){$('eErr').textContent='Enter a valid amount.';return false}
+  const d=$('eDate').value;if(!DATE_RE.test(d)){$('eErr').textContent='Pick a valid date.';return false}
+  return {amount:r2(n),categoryId:$('eCat').value,date:d,note:$('eNote').value.trim()}}}]);
+ if(r){Object.assign(e,r);save();toast('Saved')}
+}
+async function toggleCategory(id){
+ const c=data.categories.find(x=>x.id===id);if(!c||c.builtIn)return;
+ if(c.archived){c.archived=false;save();return}
+ if(await confirmBox('Archive this category? Existing expenses keep their category label.','Archive',true)){c.archived=true;save()}
+}
+document.addEventListener('click',ev=>{
+ const b=ev.target.closest&&ev.target.closest('[data-act]');if(!b)return;
+ const id=b.dataset.id;
+ if(b.dataset.act==='edit')editExpense(id);else if(b.dataset.act==='del')deleteExpense(id);else if(b.dataset.act==='cat')toggleCategory(id);
+});
+$('expenseForm').addEventListener('submit',e=>{
+ e.preventDefault();const amount=r2(Number($('amount').value));
+ if(!Number.isFinite(amount)||amount<=0){toast('Enter a valid amount');return}
+ const c=$('category').value;if(!c){toast('Pick a category');return}
+ const now=Date.now();
+ data.expenses.push({id:uid(),categoryId:c,amount,note:$('note').value.trim(),date:today(),createdAt:now});
+ $('amount').value='';$('note').value='';save();toast('Expense added');
+});
+$('categoryForm').addEventListener('submit',e=>{
+ e.preventDefault();const name=$('catName').value.trim();if(!name)return;
+ if(data.categories.some(c=>c.name.toLowerCase()===name.toLowerCase())){toast('That category already exists');return}
+ data.categories.push({id:uid(),name,emoji:$('catEmoji').value.trim()||'✨',color:'#c9f04a'});
+ $('catName').value='';save();toast('Category added');
+});
 $('exportBtn').onclick=$('historyExport').onclick=$('backupBtn').onclick=exportData;
-$('importBtn').onclick=()=>$('importFile').click();
-$('importFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const v=JSON.parse(await f.text());if(!Array.isArray(v.categories)||!Array.isArray(v.expenses))throw 0;if(confirm('Replace current data with this backup?')){data=v;save()}}catch{alert('That backup file is not valid.')}e.target.value=''};
+$('importBtn').onclick=importData;
 function show(view){document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));['today','history','insights','categories'].forEach(v=>$('view-'+v).classList.toggle('hidden',v!==view));window.scrollTo(0,0)}
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.view)));
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)render()});   // refresh "today" after midnight
 render();
 </script>
 </body></html>
