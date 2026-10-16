@@ -3,201 +3,211 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#11120e">
-<title>Spend Pool Daily</title>
+<meta name="theme-color" content="#f6f1e7">
+<title>Spend Pool</title>
 <style>
-:root{color-scheme:dark;--bg:#11120e;--panel:#1d1f19;--muted:#a5a89a;--lime:#c9f04a;--line:#34372d;--orange:#ff8a5b}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f5f6ef;font:16px system-ui,-apple-system,Segoe UI,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
-main{max-width:680px;margin:auto;padding:18px 16px 100px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px}.eyebrow{font-size:12px;color:var(--muted);letter-spacing:.13em;text-transform:uppercase}.title{font-size:27px;font-weight:800;letter-spacing:-.04em;margin:2px 0 14px}.pill{border:1px solid var(--line);border-radius:99px;padding:8px 12px;color:var(--muted);font-size:12px}
-.total{background:var(--lime);color:#17190f;padding:22px;border-radius:24px;margin:12px 0 16px}.total small{font-weight:700;opacity:.75}.amount{font-size:42px;letter-spacing:-.06em;font-weight:850;margin:5px 0}.sub{font-size:13px;opacity:.75}.tabs{display:flex;gap:8px;margin:16px 0;overflow:auto}.tab,button{border:1px solid var(--line);background:var(--panel);color:#f5f6ef;border-radius:14px;padding:11px 14px;font:inherit;cursor:pointer}.tab.active{background:#f5f6ef;color:#15160f;border-color:#f5f6ef;font-weight:700}.section{display:flex;align-items:center;justify-content:space-between;margin:22px 0 10px}.section h2{font-size:17px;margin:0}.btn-primary{background:var(--lime);color:#17190f;border:0;font-weight:800}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px;margin:8px 0}.row{display:flex;align-items:center;gap:12px}.grow{flex:1;min-width:0}.emoji{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:#2c2f24;font-size:21px}.name{font-weight:750}.muted{color:var(--muted);font-size:13px}.price{font-weight:800;font-variant-numeric:tabular-nums}.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.fields .wide{grid-column:1/-1}label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}input,select{width:100%;padding:13px;background:#11120e;border:1px solid var(--line);border-radius:12px;color:#fff;font:inherit}form{display:grid;gap:12px}.hidden{display:none!important}.smallbtn{padding:7px 10px;font-size:12px;border-radius:10px}.danger{color:#ff9a8c}.empty{text-align:center;padding:28px 12px;color:var(--muted)}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}.stat strong{display:block;font-size:23px;margin-top:7px}.bar{height:7px;background:#34372d;border-radius:99px;overflow:hidden;margin-top:8px}.bar span{display:block;height:100%;background:var(--lime)}.bottom{position:fixed;bottom:0;left:0;right:0;background:#11120eef;backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:flex;justify-content:center;gap:7px}.bottom button{flex:1;max-width:150px;font-size:12px;padding:10px 5px}.bottom button.active{border-color:var(--lime);color:var(--lime)}.notice{font-size:12px;color:var(--muted);line-height:1.5;margin-top:16px}
-.modal{position:fixed;inset:0;background:#000b;display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}.dialog{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;width:100%;max-width:420px;max-height:88vh;overflow:auto}.dialog h3{margin:0 0 10px;font-size:18px}.dialog p{margin:0 0 8px;color:var(--muted);font-size:14px;line-height:1.5}.actions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}textarea{width:100%;min-height:150px;padding:12px;background:#11120e;border:1px solid var(--line);border-radius:12px;color:#fff;font:12px ui-monospace,monospace;resize:vertical}.err{color:var(--orange);font-size:13px;min-height:16px;margin-top:6px}.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#f5f6ef;color:#15160f;padding:10px 16px;border-radius:99px;font-size:13px;font-weight:600;z-index:60;max-width:90vw;text-align:center}.dayhead{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;margin:18px 4px 4px;font-weight:700}
+:root{--bg:#f6f1e7;--card:#fffdf8;--ink:#1c1b17;--muted:#8a8576;--line:#e6dfcf;--acc:#ff5a36;--soft:#efe8d8}
+@media(prefers-color-scheme:dark){:root{--bg:#14130f;--card:#1e1d18;--ink:#f4efe3;--muted:#9b9686;--line:#2d2b24;--soft:#2a281f}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px system-ui,-apple-system,Segoe UI,sans-serif;padding:env(safe-area-inset-top) 0 0}
+main{max-width:560px;margin:auto;padding:20px 18px 130px}
+button{font:inherit;color:inherit;border:0;background:var(--soft);border-radius:14px;padding:11px 16px;cursor:pointer}
+input,select{width:100%;font:inherit;color:var(--ink);background:var(--soft);border:1px solid transparent;border-radius:14px;padding:14px}
+input:focus{outline:2px solid var(--acc)}
+.hidden{display:none!important}
+.head small{color:var(--muted);font-size:13px}.head h1{margin:2px 0 18px;font-size:28px;letter-spacing:-.03em}
+.hero{background:var(--ink);color:var(--bg);border-radius:28px;padding:24px}
+.hero small{opacity:.65;font-size:13px;letter-spacing:.08em}.hero .big{font-size:48px;font-weight:800;letter-spacing:-.05em;margin:6px 0 4px}.hero .sub{opacity:.7;font-size:14px}
+.h2{display:flex;justify-content:space-between;align-items:center;margin:26px 2px 10px}.h2 h2{margin:0;font-size:18px}
+.item{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 14px;margin:8px 0;cursor:pointer}
+.ic{width:42px;height:42px;border-radius:14px;background:var(--soft);display:grid;place-items:center;font-size:20px;flex:none}
+.grow{flex:1;min-width:0}.nm{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mt{color:var(--muted);font-size:13px}.pr{font-weight:800;font-variant-numeric:tabular-nums}
+.empty{text-align:center;color:var(--muted);padding:30px 10px;background:var(--card);border:1px dashed var(--line);border-radius:18px}
+.day{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;font-weight:700;margin:20px 4px 2px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px}.stat b{display:block;font-size:21px;margin-top:6px}
+.chart{display:flex;align-items:flex-end;gap:8px;height:130px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 12px 10px}
+.col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px;font-size:11px;color:var(--muted)}.col i{display:block;width:100%;background:var(--acc);border-radius:8px;min-height:3px}.col.t{color:var(--ink);font-weight:800}
+.bar{height:7px;background:var(--soft);border-radius:9px;overflow:hidden;margin-top:7px}.bar span{display:block;height:100%;background:var(--acc)}
+.fab{position:fixed;right:20px;bottom:calc(86px + env(safe-area-inset-bottom));width:60px;height:60px;border-radius:30px;background:var(--acc);color:#fff;font-size:32px;line-height:1;padding:0;box-shadow:0 8px 24px #ff5a3666}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom))}
+nav button{flex:1;background:none;border-radius:12px;font-size:11px;color:var(--muted);padding:8px 2px}nav button span{display:block;font-size:20px}nav button.on{color:var(--acc);font-weight:800}
+.modal{position:fixed;inset:0;background:#0008;display:flex;align-items:flex-end;justify-content:center;z-index:50}
+.sheet{background:var(--card);width:100%;max-width:560px;border-radius:26px 26px 0 0;padding:20px 18px calc(18px + env(safe-area-inset-bottom));max-height:92vh;overflow:auto;display:grid;gap:12px}
+.sheet h3{margin:0;font-size:18px}.sheet p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
+.amt{display:flex;align-items:center;gap:6px;font-size:44px;font-weight:800}.amt input{font-size:40px;font-weight:800;background:none;padding:4px 0;border:0;width:100%}.amt input:focus{outline:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{border-radius:99px;padding:9px 14px;font-size:14px}.chip.on{background:var(--acc);color:#fff;font-weight:700}
+.acts{display:flex;gap:8px}.acts button{flex:1}.pri{background:var(--acc);color:#fff;font-weight:800}.dng{color:#e2432a}
+textarea{width:100%;min-height:140px;padding:12px;background:var(--soft);color:var(--ink);border:0;border-radius:14px;font:12px ui-monospace,monospace}
+.err{color:#e2432a;font-size:13px;min-height:4px}
+.toast{position:fixed;left:50%;bottom:calc(150px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:99px;font-size:13px;font-weight:600;z-index:60;max-width:90vw;text-align:center}
+.note{font-size:12px;color:var(--muted);line-height:1.5;margin-top:16px}
 </style>
 </head>
 <body>
 <main>
- <div class="top"><div><div class="eyebrow">Personal money tracker</div><div class="title">Spend Pool Daily</div></div><span class="pill">OFFLINE READY</span></div>
- <section class="total"><small id="totalLabel">TODAY'S SPENDING</small><div class="amount" id="todayTotal">₹0</div><div class="sub" id="todayCount">0 expenses logged</div></section>
- <div class="tabs" id="tabs"><button type="button" class="tab active" data-view="today">Today</button><button type="button" class="tab" data-view="history">History</button><button type="button" class="tab" data-view="insights">Insights</button><button type="button" class="tab" data-view="categories">Categories</button></div>
- <section id="view-today">
-  <div class="section"><h2>Quick add</h2><span class="muted" id="dateLabel"></span></div>
-  <form class="card" id="expenseForm">
-   <div class="fields">
-    <div><label for="amount">Amount (₹)</label><input id="amount" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="120" required></div>
-    <div><label for="category">Category</label><select id="category"></select></div>
-    <div class="wide"><label for="note">Note (optional)</label><input id="note" maxlength="100" placeholder="What did you spend on?"></div>
-   </div>
-   <button class="btn-primary" type="submit">+ Add expense</button>
-  </form>
-  <div class="section"><h2>Today's expenses</h2><button type="button" class="smallbtn" id="exportBtn">Export backup</button></div>
-  <div id="todayList"></div>
+ <div class="head"><small id="date"></small><h1>Spend Pool</h1></div>
+ <section id="v-home">
+  <div class="hero"><small>SPENT TODAY</small><div class="big" id="tot">₹0</div><div class="sub" id="sub"></div></div>
+  <div class="h2"><h2>Today</h2></div><div id="todayList"></div>
  </section>
- <section id="view-history" class="hidden"><div class="section"><h2>Expense history</h2><button type="button" class="smallbtn" id="historyExport">Export backup</button></div><div id="historyList"></div></section>
- <section id="view-insights" class="hidden"><div class="section"><h2>Spending insights</h2></div><div class="stats" id="stats"></div><div class="section"><h2>By category</h2></div><div id="breakdown"></div></section>
- <section id="view-categories" class="hidden"><div class="section"><h2>Your categories</h2></div><form class="card" id="categoryForm"><div class="fields"><div><label for="catName">Name</label><input id="catName" maxlength="24" placeholder="Travel" required></div><div><label for="catEmoji">Emoji</label><input id="catEmoji" maxlength="4" value="✨"></div></div><button class="btn-primary" type="submit">Add category</button></form><div id="categoryList"></div><div class="card"><div class="name">Backup and restore</div><p class="muted">Your records are stored on this device inside the app. Export a backup regularly (copy the text and save it in Notes, WhatsApp or email) so you can restore it if app data is cleared or the app is uninstalled.</p><div class="row"><button type="button" id="backupBtn">Export backup</button><button type="button" id="importBtn">Import backup</button></div></div></section>
- <p class="notice">Local-only storage: no account and no cloud sync. Clearing app data or uninstalling the app erases records; use Export backup to keep a copy.</p>
+ <section id="v-history" class="hidden"><div class="h2"><h2>History</h2></div><div id="histList"></div></section>
+ <section id="v-insights" class="hidden">
+  <div class="h2"><h2>Last 7 days</h2></div><div class="chart" id="chart"></div>
+  <div class="h2"><h2>Overview</h2></div><div class="grid" id="stats"></div>
+  <div class="h2"><h2>By category</h2></div><div id="brk"></div>
+ </section>
+ <section id="v-more" class="hidden">
+  <div class="h2"><h2>New category</h2></div>
+  <form id="catForm" class="item" style="cursor:default;gap:8px"><input id="cEmoji" maxlength="4" value="✨" style="width:64px;text-align:center"><input id="cName" maxlength="24" placeholder="e.g. Travel" required><button class="pri" type="submit">Add</button></form>
+  <div class="h2"><h2>Categories</h2></div><div id="catList"></div>
+  <div class="h2"><h2>Backup</h2></div>
+  <div class="item" style="cursor:default;display:block"><p class="mt" style="margin:0 0 12px">Data lives on this device only. Copy a backup regularly (Notes, WhatsApp, email) in case app data is cleared.</p><div class="acts"><button id="exp">Export</button><button id="imp">Import</button></div></div>
+  <p class="note">No account, no cloud. Uninstalling the app erases records, so keep a backup.</p>
+ </section>
 </main>
-<nav class="bottom"><button type="button" class="active" data-view="today">＋ Add</button><button type="button" data-view="history">▤ History</button><button type="button" data-view="insights">◔ Insights</button><button type="button" data-view="categories">⚙ Categories</button></nav>
-<div class="modal hidden" id="modal"><div class="dialog"><h3 id="mTitle"></h3><div id="mBody"></div><div class="actions" id="mActions"></div></div></div>
+<button class="fab" id="fab" aria-label="Add expense">+</button>
+<nav id="nav"><button class="on" data-v="home"><span>◉</span>Home</button><button data-v="history"><span>☰</span>History</button><button data-v="insights"><span>▮</span>Insights</button><button data-v="more"><span>⚙</span>More</button></nav>
+<div class="modal hidden" id="modal"><div class="sheet"><h3 id="mT"></h3><div id="mB" style="display:grid;gap:12px"></div><div class="acts" id="mA"></div></div></div>
 <div class="toast hidden" id="toast"></div>
 <script>
 const KEY='spend-pool:v1';
-const defaults=[{id:'cig',name:'Cig',emoji:'🚬',color:'#ff8a5b',builtIn:true},{id:'food',name:'Food',emoji:'🍜',color:'#ffd25b',builtIn:true},{id:'impulse',name:'Impulse',emoji:'⚡',color:'#ff5fa2',builtIn:true},{id:'donate',name:'Donate',emoji:'💝',color:'#4ee6a8',builtIn:true}];
+const defaults=[{id:'cig',name:'Cig',emoji:'🚬',builtIn:true},{id:'food',name:'Food',emoji:'🍜',builtIn:true},{id:'impulse',name:'Impulse',emoji:'⚡',builtIn:true},{id:'donate',name:'Donate',emoji:'💝',builtIn:true}];
 const DATE_RE=/^\d{4}-\d{2}-\d{2}$/;
 const $=id=>document.getElementById(id);
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const key=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const today=()=>key(new Date());
 const money=n=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:2}).format(n);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const r2=n=>Math.round(n*100)/100;
+const sum=a=>a.reduce((s,e)=>s+e.amount,0);
 
-/* ---------- Storage: validate everything that comes in ---------- */
+/* ---- storage (same key as before, so old data is kept) ---- */
 function clean(v){
  if(!v||typeof v!=='object'||!Array.isArray(v.categories)||!Array.isArray(v.expenses))return null;
- const categories=defaults.map(d=>({...d}));
- const ids=new Set(categories.map(c=>c.id));
- v.categories.forEach(c=>{
-  if(!c||typeof c.id!=='string'||!c.id||ids.has(c.id)||typeof c.name!=='string'||!c.name.trim())return;
-  ids.add(c.id);categories.push({id:c.id,name:c.name.trim().slice(0,24),emoji:String(c.emoji||'✨').slice(0,4),color:'#c9f04a',archived:!!c.archived});
- });
+ const categories=defaults.map(d=>({...d})),ids=new Set(categories.map(c=>c.id));
+ v.categories.forEach(c=>{if(!c||typeof c.id!=='string'||!c.id||ids.has(c.id)||typeof c.name!=='string'||!c.name.trim())return;ids.add(c.id);categories.push({id:c.id,name:c.name.trim().slice(0,24),emoji:String(c.emoji||'✨').slice(0,4),archived:!!c.archived})});
  const expenses=[];
  v.expenses.forEach(e=>{
   if(!e||typeof e!=='object')return;
   const amount=Number(e.amount);if(!Number.isFinite(amount)||amount<=0)return;
-  let createdAt=Number(e.createdAt);
-  let date=typeof e.date==='string'&&DATE_RE.test(e.date)?e.date:null;
-  if(!date){if(Number.isFinite(createdAt)&&createdAt>0){const d=new Date(createdAt);date=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}else return}
+  let createdAt=Number(e.createdAt),date=typeof e.date==='string'&&DATE_RE.test(e.date)?e.date:null;
+  if(!date){if(Number.isFinite(createdAt)&&createdAt>0)date=key(new Date(createdAt));else return}
   if(!Number.isFinite(createdAt)||createdAt<=0)createdAt=new Date(date+'T12:00:00').getTime();
   expenses.push({id:typeof e.id==='string'&&e.id?e.id:uid(),categoryId:String(e.categoryId||''),amount:r2(amount),note:String(e.note||'').slice(0,100),date,createdAt});
  });
  return {categories,expenses};
 }
 function load(){
- let raw=null;
- try{raw=localStorage.getItem(KEY)}catch{}
+ let raw=null;try{raw=localStorage.getItem(KEY)}catch{}
  if(raw){
   try{const v=clean(JSON.parse(raw));if(v)return v}catch{}
-  // main data unreadable: keep a copy of it, then try the automatic backup
   try{localStorage.setItem(KEY+':corrupt',raw)}catch{}
   try{const b=clean(JSON.parse(localStorage.getItem(KEY+':bak')));if(b)return b}catch{}
  }
  return {categories:defaults.map(d=>({...d})),expenses:[]};
 }
-let data=load();
+let data=load(),lastCat=null;
 function save(){
- try{
-  const prev=localStorage.getItem(KEY);
-  if(prev){try{localStorage.setItem(KEY+':bak',prev)}catch{}}   // previous version kept as safety copy
-  localStorage.setItem(KEY,JSON.stringify(data));
- }catch{toast('Could not save! Export a backup and free some storage.')}
+ try{const p=localStorage.getItem(KEY);if(p){try{localStorage.setItem(KEY+':bak',p)}catch{}}localStorage.setItem(KEY,JSON.stringify(data))}
+ catch{toast('Could not save! Export a backup.')}
  render();
 }
 
-/* ---------- UI helpers (WebView blocks alert/confirm/prompt, so we use our own) ---------- */
-let toastT;
-function toast(m){const t=$('toast');t.textContent=m;t.classList.remove('hidden');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.add('hidden'),2800)}
-let mResolve=null;
-function closeModal(v){$('modal').classList.add('hidden');const r=mResolve;mResolve=null;if(r)r(v)}
+/* ---- UI helpers (own dialogs, since WebView blocks alert/confirm/prompt) ---- */
+let tT,mR=null;
+function toast(m){const t=$('toast');t.textContent=m;t.classList.remove('hidden');clearTimeout(tT);tT=setTimeout(()=>t.classList.add('hidden'),2600)}
+function closeModal(v){$('modal').classList.add('hidden');const r=mR;mR=null;if(r)r(v)}
 function openModal(title,html,actions){
  return new Promise(res=>{
-  if(mResolve)closeModal(null);
-  mResolve=res;$('mTitle').textContent=title;$('mBody').innerHTML=html;
-  const box=$('mActions');box.innerHTML='';
+  if(mR)closeModal(null);mR=res;$('mT').textContent=title;$('mB').innerHTML=html;
+  const box=$('mA');box.innerHTML='';
   actions.forEach(a=>{const b=document.createElement('button');b.type='button';b.textContent=a.label;if(a.cls)b.className=a.cls;
    b.onclick=()=>{if(a.fn){const r=a.fn();if(r===false)return;closeModal(r)}else closeModal(a.value)};box.appendChild(b)});
   $('modal').classList.remove('hidden');
  });
 }
-const confirmBox=(msg,okLabel,danger)=>openModal('Please confirm',`<p>${esc(msg)}</p>`,[{label:'Cancel',value:false},{label:okLabel||'OK',value:true,cls:danger?'danger':'btn-primary'}]);
+const ask=(msg,ok)=>openModal('Are you sure?',`<p>${esc(msg)}</p>`,[{label:'Cancel',value:false},{label:ok,cls:'pri',value:true}]);
 $('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal(null)});
 
-function copyText(text,ta){
- try{ta.focus();ta.select();ta.setSelectionRange(0,text.length);if(document.execCommand('copy')){toast('Copied! Paste it in Notes or WhatsApp to keep it safe.');return}}catch{}
- if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>toast('Copied!'),()=>toast('Press and hold the text to copy it'))}
- else toast('Press and hold the text to copy it');
+/* ---- add / edit sheet ---- */
+async function sheet(e){
+ const act=data.categories.filter(c=>!c.archived||(e&&c.id===e.categoryId));
+ let sel=e?e.categoryId:(act.some(c=>c.id===lastCat)?lastCat:act[0].id);
+ const html=`<div class="amt"><span>₹</span><input id="sAmt" type="number" inputmode="decimal" step="0.01" min="0.01" placeholder="0" value="${e?esc(e.amount):''}"></div><div class="chips" id="sChips">${act.map(c=>`<button type="button" class="chip${c.id===sel?' on':''}" data-c="${esc(c.id)}">${esc(c.emoji)} ${esc(c.name)}</button>`).join('')}</div><input id="sNote" maxlength="100" placeholder="Note (optional)" value="${e?esc(e.note):''}">${e?`<input id="sDate" type="date" value="${esc(e.date)}">`:''}<div class="err" id="sErr"></div>`;
+ const acts=[{label:'Cancel',value:null}];
+ if(e)acts.push({label:'Delete',cls:'dng',value:{del:1}});
+ acts.push({label:e?'Save':'Add',cls:'pri',fn:()=>{
+  const n=Number($('sAmt').value);if(!Number.isFinite(n)||n<=0){$('sErr').textContent='Enter an amount.';return false}
+  let d=today();if(e){d=$('sDate').value;if(!DATE_RE.test(d)){$('sErr').textContent='Pick a valid date.';return false}}
+  return {amount:r2(n),categoryId:sel,note:$('sNote').value.trim(),date:d}}});
+ const p=openModal(e?'Edit expense':'New expense',html,acts);
+ $('sChips').onclick=ev=>{const b=ev.target.closest('[data-c]');if(!b)return;sel=b.dataset.c;[...$('sChips').children].forEach(x=>x.classList.toggle('on',x===b))};
+ if(!e)setTimeout(()=>$('sAmt').focus(),80);
+ const r=await p;if(!r)return;
+ if(r.del){if(await ask('Delete this expense?','Delete')){data.expenses=data.expenses.filter(x=>x.id!==e.id);save();toast('Deleted')}return}
+ lastCat=r.categoryId;
+ if(e){Object.assign(e,r);toast('Saved')}else{data.expenses.push({id:uid(),createdAt:Date.now(),...r});toast('Added')}
+ save();
 }
+
+/* ---- backup ---- */
 function exportData(){
- const text=JSON.stringify(data,null,2);
- const actions=[{label:'Close',value:null},{label:'Copy',cls:'btn-primary',fn:()=>{copyText(text,$('exportText'));return false}}];
- if(navigator.share)actions.splice(1,0,{label:'Share',fn:()=>{navigator.share({title:'Spend Pool backup',text}).catch(()=>{});return false}});
- if(!/; wv\)/.test(navigator.userAgent))actions.splice(1,0,{label:'Download',fn:()=>{const u=URL.createObjectURL(new Blob([text],{type:'application/json'})),a=document.createElement('a');a.href=u;a.download='spend-pool-backup-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);return false}});
- openModal('Export backup',`<p>${data.expenses.length} expenses. Tap Copy and paste it somewhere safe (Notes, WhatsApp, email).</p><textarea id="exportText" readonly></textarea>`,actions);
- $('exportText').value=text;
+ const text=JSON.stringify(data,null,2),acts=[{label:'Close',value:null}];
+ if(navigator.share)acts.push({label:'Share',fn:()=>{navigator.share({title:'Spend Pool backup',text}).catch(()=>{});return false}});
+ acts.push({label:'Copy',cls:'pri',fn:()=>{const t=$('xT');let ok=false;try{t.focus();t.select();t.setSelectionRange(0,text.length);ok=document.execCommand('copy')}catch{}
+  if(ok)toast('Copied! Paste it somewhere safe.');else if(navigator.clipboard)navigator.clipboard.writeText(text).then(()=>toast('Copied!'),()=>toast('Press and hold to copy'));else toast('Press and hold to copy');return false}});
+ openModal('Export backup',`<p>${data.expenses.length} expenses. Tap Copy, then paste into Notes or WhatsApp.</p><textarea id="xT" readonly></textarea>`,acts);
+ $('xT').value=text;
 }
 async function importData(){
- const ok=await openModal('Import backup',`<p>Paste the backup text below (or choose a .json file). This replaces your current data.</p><textarea id="importText" placeholder="Paste backup here"></textarea><input id="importFile" type="file" accept="application/json,.json" style="margin-top:10px"><div class="err" id="importErr"></div>`,[{label:'Cancel',value:false},{label:'Replace data',cls:'btn-primary',fn:()=>{
-  let v=null;try{v=clean(JSON.parse($('importText').value.trim()))}catch{}
-  if(!v){$('importErr').textContent='That backup is not valid.';return false}
-  return v}}]);
- if(ok){data=ok;save();toast(`Imported ${ok.expenses.length} expenses`)}
+ const r=await openModal('Import backup',`<p>Paste your backup below. This replaces current data.</p><textarea id="iT" placeholder="Paste backup here"></textarea><div class="err" id="iE"></div>`,[{label:'Cancel',value:false},{label:'Replace data',cls:'pri',fn:()=>{let v=null;try{v=clean(JSON.parse($('iT').value.trim()))}catch{}if(!v){$('iE').textContent='That backup is not valid.';return false}return v}}]);
+ if(r){data=r;save();toast(`Imported ${r.expenses.length} expenses`)}
 }
-document.addEventListener('change',async e=>{if(e.target&&e.target.id==='importFile'){const f=e.target.files[0];if(f){try{$('importText').value=await f.text()}catch{$('importErr').textContent='Could not read that file.'}}}});
 
-/* ---------- Rendering ---------- */
-function cat(id){return data.categories.find(c=>c.id===id)||{name:'Unknown',emoji:'❔',color:'#888'}}
-function dayName(k){return new Date(k+'T12:00:00').toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short',year:'numeric'})}
-const timeOf=ts=>new Date(ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-const sortNew=arr=>arr.slice().sort((a,b)=>b.date.localeCompare(a.date)||b.createdAt-a.createdAt);
-function row(e){const c=cat(e.categoryId);return `<div class="card row"><div class="emoji">${esc(c.emoji)}</div><div class="grow"><div class="name">${esc(e.note||c.name)}</div><div class="muted">${esc(c.name)} · ${esc(timeOf(e.createdAt))}</div></div><div style="text-align:right"><div class="price">${money(e.amount)}</div><div class="row" style="justify-content:flex-end;margin-top:6px"><button type="button" class="smallbtn" data-act="edit" data-id="${esc(e.id)}">Edit</button><button type="button" class="smallbtn danger" data-act="del" data-id="${esc(e.id)}">Delete</button></div></div></div>`}
+/* ---- render ---- */
+const cat=id=>data.categories.find(c=>c.id===id)||{name:'Unknown',emoji:'❔'};
+const dayName=k=>new Date(k+'T12:00:00').toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short'});
+const timeOf=t=>new Date(t).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+const sortNew=a=>a.slice().sort((x,y)=>y.date.localeCompare(x.date)||y.createdAt-x.createdAt);
+const item=e=>{const c=cat(e.categoryId);return `<div class="item" data-act="edit" data-id="${esc(e.id)}"><div class="ic">${esc(c.emoji)}</div><div class="grow"><div class="nm">${esc(e.note||c.name)}</div><div class="mt">${esc(c.name)} · ${esc(timeOf(e.createdAt))}</div></div><div class="pr">${money(e.amount)}</div></div>`};
 function render(){
- const t=today(),todays=data.expenses.filter(e=>e.date===t);
- $('todayTotal').textContent=money(todays.reduce((s,e)=>s+e.amount,0));
- $('todayCount').textContent=`${todays.length} expense${todays.length===1?'':'s'} logged`;
- $('dateLabel').textContent=dayName(t);
- const sel=$('category'),prev=sel.value;
- sel.innerHTML=data.categories.filter(c=>!c.archived).map(c=>`<option value="${esc(c.id)}">${esc(c.emoji)} ${esc(c.name)}</option>`).join('');
- if([...sel.options].some(o=>o.value===prev))sel.value=prev;
- $('todayList').innerHTML=todays.length?sortNew(todays).map(row).join(''):'<div class="card empty">No expenses yet today. Add your first one above.</div>';
- if(data.expenses.length){
-  const groups={};sortNew(data.expenses).forEach(e=>(groups[e.date]=groups[e.date]||[]).push(e));
-  $('historyList').innerHTML=Object.keys(groups).map(d=>`<div class="dayhead"><span>${esc(dayName(d))}</span><span>${money(groups[d].reduce((s,e)=>s+e.amount,0))}</span></div>`+groups[d].map(row).join('')).join('');
- }else $('historyList').innerHTML='<div class="card empty">No history yet.</div>';
- const total=data.expenses.reduce((s,e)=>s+e.amount,0),month=data.expenses.filter(e=>e.date.slice(0,7)===t.slice(0,7)).reduce((s,e)=>s+e.amount,0);
- $('stats').innerHTML=`<div class="stat"><span class="muted">All-time spend</span><strong>${money(total)}</strong></div><div class="stat"><span class="muted">This month</span><strong>${money(month)}</strong></div><div class="stat"><span class="muted">Total entries</span><strong>${data.expenses.length}</strong></div><div class="stat"><span class="muted">Daily average</span><strong>${money(total/Math.max(1,new Set(data.expenses.map(e=>e.date)).size))}</strong></div>`;
- const sums=data.categories.map(c=>({...c,total:data.expenses.filter(e=>e.categoryId===c.id).reduce((s,e)=>s+e.amount,0)})).filter(c=>c.total>0).sort((a,b)=>b.total-a.total);
- $('breakdown').innerHTML=sums.length?sums.map(c=>`<div class="card"><div class="row"><div class="emoji">${esc(c.emoji)}</div><div class="grow"><div class="name">${esc(c.name)}</div><div class="bar"><span style="width:${total?c.total/total*100:0}%"></span></div></div><div class="price">${money(c.total)}</div></div></div>`).join(''):'<div class="card empty">Your category breakdown will appear after you add expenses.</div>';
- $('categoryList').innerHTML=data.categories.map(c=>`<div class="card row"><div class="emoji">${esc(c.emoji)}</div><div class="grow"><div class="name">${esc(c.name)}</div><div class="muted">${c.builtIn?'Built-in category':'Custom category'}${c.archived?' · Archived':''}</div></div>${c.builtIn?'':`<button type="button" class="smallbtn ${c.archived?'':'danger'}" data-act="cat" data-id="${esc(c.id)}">${c.archived?'Restore':'Archive'}</button>`}</div>`).join('');
+ const t=today(),ex=data.expenses,td=ex.filter(e=>e.date===t);
+ const y=new Date();y.setDate(y.getDate()-1);const yt=sum(ex.filter(e=>e.date===key(y))),tt=sum(td);
+ $('date').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long'});
+ $('tot').textContent=money(tt);
+ $('sub').textContent=`${td.length} expense${td.length===1?'':'s'}`+(yt?` · ${tt>yt?'↑':tt<yt?'↓':'='} ${money(Math.abs(tt-yt))} vs yesterday`:'');
+ $('todayList').innerHTML=td.length?sortNew(td).map(item).join(''):'<div class="empty">Nothing spent yet today.<br>Tap + to log an expense.</div>';
+ if(ex.length){const g={};sortNew(ex).forEach(e=>(g[e.date]=g[e.date]||[]).push(e));
+  $('histList').innerHTML=Object.keys(g).map(d=>`<div class="day"><span>${esc(dayName(d))}</span><span>${money(sum(g[d]))}</span></div>`+g[d].map(item).join('')).join('')}
+ else $('histList').innerHTML='<div class="empty">No history yet.</div>';
+ const days=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-6+i);const k=key(d);return{k,l:d.toLocaleDateString(undefined,{weekday:'narrow'}),v:sum(ex.filter(e=>e.date===k))}});
+ const mx=Math.max(1,...days.map(d=>d.v));
+ $('chart').innerHTML=days.map(d=>`<div class="col${d.k===t?' t':''}"><i style="height:${Math.round(d.v/mx*80)}%"></i>${esc(d.l)}</div>`).join('');
+ const total=sum(ex),mo=sum(ex.filter(e=>e.date.slice(0,7)===t.slice(0,7))),nd=Math.max(1,new Set(ex.map(e=>e.date)).size);
+ $('stats').innerHTML=[['This month',mo],['All time',total],['Daily average',total/nd]].map(s=>`<div class="stat"><span class="mt">${s[0]}</span><b>${money(s[1])}</b></div>`).join('')+`<div class="stat"><span class="mt">Entries</span><b>${ex.length}</b></div>`;
+ const bs=data.categories.map(c=>({...c,v:sum(ex.filter(e=>e.categoryId===c.id))})).filter(c=>c.v>0).sort((a,b)=>b.v-a.v);
+ $('brk').innerHTML=bs.length?bs.map(c=>`<div class="item" style="cursor:default"><div class="ic">${esc(c.emoji)}</div><div class="grow"><div class="nm">${esc(c.name)}</div><div class="bar"><span style="width:${total?c.v/total*100:0}%"></span></div></div><div class="pr">${money(c.v)}</div></div>`).join(''):'<div class="empty">Add expenses to see your breakdown.</div>';
+ $('catList').innerHTML=data.categories.map(c=>`<div class="item" style="cursor:default"><div class="ic">${esc(c.emoji)}</div><div class="grow"><div class="nm">${esc(c.name)}</div><div class="mt">${c.builtIn?'Built-in':'Custom'}${c.archived?' · Archived':''}</div></div>${c.builtIn?'':`<button data-act="cat" data-id="${esc(c.id)}" style="padding:8px 12px;font-size:13px">${c.archived?'Restore':'Archive'}</button>`}</div>`).join('');
 }
 
-/* ---------- Actions (event delegation: works for every dynamically drawn button) ---------- */
-async function deleteExpense(id){if(await confirmBox('Delete this expense?','Delete',true)){data.expenses=data.expenses.filter(e=>e.id!==id);save();toast('Deleted')}}
-async function editExpense(id){
- const e=data.expenses.find(x=>x.id===id);if(!e)return;
- const opts=data.categories.filter(c=>!c.archived||c.id===e.categoryId).map(c=>`<option value="${esc(c.id)}"${c.id===e.categoryId?' selected':''}>${esc(c.emoji)} ${esc(c.name)}</option>`).join('');
- const r=await openModal('Edit expense',`<div class="fields"><div><label for="eAmt">Amount (₹)</label><input id="eAmt" type="number" inputmode="decimal" step="0.01" min="0.01" value="${esc(e.amount)}"></div><div><label for="eCat">Category</label><select id="eCat">${opts}</select></div><div class="wide"><label for="eDate">Date</label><input id="eDate" type="date" value="${esc(e.date)}"></div><div class="wide"><label for="eNote">Note</label><input id="eNote" maxlength="100" value="${esc(e.note)}"></div></div><div class="err" id="eErr"></div>`,[{label:'Cancel',value:null},{label:'Save',cls:'btn-primary',fn:()=>{
-  const n=Number($('eAmt').value);if(!Number.isFinite(n)||n<=0){$('eErr').textContent='Enter a valid amount.';return false}
-  const d=$('eDate').value;if(!DATE_RE.test(d)){$('eErr').textContent='Pick a valid date.';return false}
-  return {amount:r2(n),categoryId:$('eCat').value,date:d,note:$('eNote').value.trim()}}}]);
- if(r){Object.assign(e,r);save();toast('Saved')}
-}
-async function toggleCategory(id){
- const c=data.categories.find(x=>x.id===id);if(!c||c.builtIn)return;
- if(c.archived){c.archived=false;save();return}
- if(await confirmBox('Archive this category? Existing expenses keep their category label.','Archive',true)){c.archived=true;save()}
-}
+/* ---- events ---- */
 document.addEventListener('click',ev=>{
  const b=ev.target.closest&&ev.target.closest('[data-act]');if(!b)return;
- const id=b.dataset.id;
- if(b.dataset.act==='edit')editExpense(id);else if(b.dataset.act==='del')deleteExpense(id);else if(b.dataset.act==='cat')toggleCategory(id);
+ if(b.dataset.act==='edit'){const e=data.expenses.find(x=>x.id===b.dataset.id);if(e)sheet(e)}
+ else if(b.dataset.act==='cat'){const c=data.categories.find(x=>x.id===b.dataset.id);if(!c||c.builtIn)return;
+  if(c.archived){c.archived=false;save()}else ask('Archive this category? Old expenses keep their label.','Archive').then(ok=>{if(ok){c.archived=true;save()}})}
 });
-$('expenseForm').addEventListener('submit',e=>{
- e.preventDefault();const amount=r2(Number($('amount').value));
- if(!Number.isFinite(amount)||amount<=0){toast('Enter a valid amount');return}
- const c=$('category').value;if(!c){toast('Pick a category');return}
- const now=Date.now();
- data.expenses.push({id:uid(),categoryId:c,amount,note:$('note').value.trim(),date:today(),createdAt:now});
- $('amount').value='';$('note').value='';save();toast('Expense added');
-});
-$('categoryForm').addEventListener('submit',e=>{
- e.preventDefault();const name=$('catName').value.trim();if(!name)return;
- if(data.categories.some(c=>c.name.toLowerCase()===name.toLowerCase())){toast('That category already exists');return}
- data.categories.push({id:uid(),name,emoji:$('catEmoji').value.trim()||'✨',color:'#c9f04a'});
- $('catName').value='';save();toast('Category added');
-});
-$('exportBtn').onclick=$('historyExport').onclick=$('backupBtn').onclick=exportData;
-$('importBtn').onclick=importData;
-function show(view){document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));['today','history','insights','categories'].forEach(v=>$('view-'+v).classList.toggle('hidden',v!==view));window.scrollTo(0,0)}
-document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.view)));
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)render()});   // refresh "today" after midnight
+$('fab').onclick=()=>sheet(null);
+$('exp').onclick=exportData;$('imp').onclick=importData;
+$('catForm').addEventListener('submit',e=>{e.preventDefault();const n=$('cName').value.trim();if(!n)return;
+ if(data.categories.some(c=>c.name.toLowerCase()===n.toLowerCase())){toast('Already exists');return}
+ data.categories.push({id:uid(),name:n,emoji:$('cEmoji').value.trim()||'✨'});$('cName').value='';save();toast('Category added')});
+$('nav').onclick=e=>{const b=e.target.closest('[data-v]');if(!b)return;
+ [...$('nav').children].forEach(x=>x.classList.toggle('on',x===b));
+ ['home','history','insights','more'].forEach(v=>$('v-'+v).classList.toggle('hidden',v!==b.dataset.v));
+ $('fab').classList.toggle('hidden',b.dataset.v==='more');window.scrollTo(0,0)};
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)render()});
 render();
 </script>
 </body></html>
