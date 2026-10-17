@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- ring track -->
+    <path
+        android:pathData="M54,30 A24,24 0 1,1 54,78 A24,24 0 1,1 54,30"
+        android:strokeColor="#29F5F1E8"
+        android:strokeWidth="9"
+        android:fillColor="#00000000" />
+
+    <!-- budget ring progress (270 degrees) -->
+    <path
+        android:pathData="M54,30 A24,24 0 1,1 30,54"
+        android:strokeColor="#E8553A"
+        android:strokeWidth="9"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000" />
+
+    <!-- coin -->
+    <path
+        android:pathData="M54,44 A10,10 0 1,1 54,64 A10,10 0 1,1 54,44"
+        android:fillColor="#F5F1E8" />
+    <path
+        android:pathData="M54,50 A4,4 0 1,1 54,58 A4,4 0 1,1 54,50"
+        android:fillColor="#E8553A" />
+</vector>
